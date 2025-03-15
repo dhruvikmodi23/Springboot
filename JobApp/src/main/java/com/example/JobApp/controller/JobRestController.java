@@ -22,12 +22,17 @@ public class JobRestController {
          return jobService.getAllJobs();
      }
 
+
      //path variable
      @GetMapping("JobPost/{postId}")
      public JobPost getJob(@PathVariable("postId") int postId){
           return jobService.getJob(postId);
      }
 
+     @GetMapping("jobPosts/keyword/{keyword}")
+     public List<JobPost> searchByKeyword(@PathVariable("keyword") String keyword){
+        return jobService.search(keyword);
+     }
      //request body
 //     @PostMapping(path="JobPost", consumes= {"application/xml"})
      @PostMapping("JobPost")
@@ -48,5 +53,11 @@ public class JobRestController {
      public void deleteJob(@PathVariable("postId") int postId){
           jobService.deleteJob(postId);
           System.out.println("Job deleted");
+     }
+
+     @GetMapping("load")
+     public String loadData(){
+          jobService.load();
+        return "Success";
      }
 }
